@@ -30,7 +30,7 @@ class EIterator:
         Skips characters in the file until the first decimal point ('.') is found.
         
         """
-        while self.file.read(size = 1) != ".":
+        while self.file.read(1) != ".":
             pass
 
     def __iter__(self):
