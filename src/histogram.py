@@ -12,8 +12,8 @@ class Histogram(object):
 
         for value in data:
             index = int((value - self.range_min) / self.interval_width)
-            if index == self.interval_nb:
-                index -= 1
+            if index >= self.interval_nb:
+                index = -1
 
             hist[index] += 1
 
