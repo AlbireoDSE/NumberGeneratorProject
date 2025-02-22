@@ -10,7 +10,7 @@ class EIterator:
     
     def __init__(self, file_path: str, chunk_size: int = 10000):
         """
-        Initializes an Iterator object.
+        Initializes an EIterator object.
 
         Args:
             file_path (str): The path to the file containing the e decimal
