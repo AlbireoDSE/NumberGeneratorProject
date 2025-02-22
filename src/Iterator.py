@@ -8,20 +8,30 @@ class EIterator:
     
     """
     
-    def __init__(self, filepath: str, chunk_size: int = 10000):
+    def __init__(self, file_path: str, chunk_size: int = 10000):
         """
         Initializes an Iterator object.
 
         Args:
-            filepath (str): The path to the file containing the e decimal
+            file_path (str): The path to the file containing the e decimal
             chunk_size (int): Number of decimal load at once. Defaults = 10000.
             
         """
-        self.filepath = filepath
+        self.filepath = file_path
         self.chunk_size = chunk_size
         self.file = open(self.filepath, "r")
         self.buffer = ""
         self.index = 0
+        
+        self.reach_decimal()
+        
+    def reach_decimal(self):
+        """
+        Skips characters in the file until the first decimal point ('.') is found.
+        
+        """
+        while self.file.read(size = 1) != ".":
+            pass
 
     def __iter__(self):
         """
