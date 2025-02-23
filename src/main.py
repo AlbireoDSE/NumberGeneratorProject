@@ -1,3 +1,5 @@
+from mpmath.math2 import khinchin
+
 from src.histogram import Histogram
 from src.tests.khi_square import KhiSquareTest
 
@@ -17,7 +19,10 @@ if __name__ == "__main__":
     hist1 = hist_creator.create(data1)
     hist2 = hist_creator.create(data2)
 
+    khi_square_test = KhiSquareTest()
 
+    khi_square1 = khi_square_test.from_histograms(hist1, hist2)
+    khi_square2 = khi_square_test.from_distribution(hist1)
 
-    khi_square = KhiSquareTest(hist1, hist2).run()
-    print(khi_square)
+    print(khi_square1)
+    print(khi_square2)
