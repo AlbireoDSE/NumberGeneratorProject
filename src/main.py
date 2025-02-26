@@ -20,18 +20,11 @@ if __name__ == "__main__":
             print("No more number in the list")
             break
 
-    data1 = [0.1, 0.2, 0.01, 0.1, 0.2, 0.01, 0.1, 0.2, 0.01, 0.4, 0.1, 0.5, 0.6, 0.9, 0.99, 0.3, 2, 0.7]
-    data2 = [0.1, 0.5, 0.5, 0.6, 0.9, 0.99, 0.3, 2, 0.01, 0.1]
+    histogram = Histogram(data=data, interval_nb = 5)
+    histogram.save_plot()
 
-    hist_creator = Histogram(interval_nb=5)
+    khi_square = KhiSquareTest.from_distribution(histogram.hist)
 
-    hist1 = hist_creator.create(data1)
-    hist2 = hist_creator.create(data2)
-
-    khi_square_test = KhiSquareTest()
-
-    khi_square1 = khi_square_test.from_histograms(hist1, hist2)
-    khi_square2 = khi_square_test.from_distribution(hist1)
-
-    print(khi_square1)
-    print(khi_square2)
+    print(khi_square)
+    
+    KhiSquareTest.is_goodness_fit(data)
