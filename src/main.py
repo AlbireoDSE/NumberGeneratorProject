@@ -20,7 +20,7 @@ if __name__ == "__main__":
             print("No more number in the list")
             break
 
-    histogram = Histogram(data=data, interval_nb = 5)
+    histogram = Histogram(data=data, interval_nb = 10)
     histogram.save_plot()
 
     khi_square = KhiSquareTest.from_distribution(histogram.hist)

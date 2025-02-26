@@ -31,6 +31,7 @@ class Histogram:
         self.range_min = range_min
         self.range_max = range_max
         self.hist = [0] * interval_nb
+        self.mean = len(self.data)/self.interval_nb
         
         self._create()
 
@@ -71,5 +72,10 @@ class Histogram:
         plt.title("Histogram")
         plt.grid(axis="y", linestyle="--", alpha=0.6)
 
+        plt.axhline(self.mean, color='red', linestyle='dashed', linewidth=2)
+        
+        plt.text(1.06, self.mean, 'Mean:\n{:.2f}'.format(self.mean), color="red")
+        
         plt.savefig(PathFinder.get_complet_path("images/my_histogram.png"))
+        
         plt.close()
