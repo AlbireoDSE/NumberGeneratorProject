@@ -8,7 +8,7 @@ if __name__ == "__main__":
     
     file_path = PathFinder.get_complet_path("files/e2M.txt")
     iterator = EIterator(file_path = file_path)
-    generator = EGenerator(iterator = iterator)
+    generator = EGenerator(iterator = iterator, num_decimals = 15)
     data = []
     
     while True:
