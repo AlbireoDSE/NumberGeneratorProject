@@ -21,14 +21,14 @@ class KhiSquareTest:
             float: The Chi-Square test statistic.
             
         More informations:
-            - If X² > critical value -> The distribution significantly differs from uniform (not good).
-            - If χ² ≤ critical value -> The distribution is close to uniform (good).
+            H0: If X² > critical value -> The distribution significantly differs from uniform (not good).
+            H1: If χ² ≤ critical value -> The distribution is close to uniform (good).
 
         """
         
         degree_freedom = len(hist) - 1
         
-        chi_square = KhiSquareTest.from_distribution(hist=hist)
+        chi_square = KhiSquareTest.compute(hist=hist)
         
         critical_value = stats.chi2.ppf(1 - alpha, degree_freedom)
         
@@ -39,7 +39,7 @@ class KhiSquareTest:
         
         
     @staticmethod
-    def from_distribution(hist: list) -> float:
+    def compute(hist: list) -> float:
         """
         Computes the Chi-Square statistic for a given histogram, assuming 
         a uniform expected distribution.

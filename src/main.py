@@ -1,30 +1,42 @@
 from histogram import Histogram
 from tests.khi_square import KhiSquareTest
+from tests.kolmogorov_smirnov import KolmogorovSmirnov
 from generator import EGenerator
 from iterator import EIterator
 from utils.path_finder import PathFinder
 
+def test_khi_square(histogram: list):
+    
+    print("\n ----------------------KHI SQUARE----------------------\n")
+    KhiSquareTest.is_goodness_fit(hist = histogram.hist)
+
+def test_kolmogorov_smirnov(data: list):
+    
+    print("\n ------------------Kolmogorov Smirnov------------------\n")
+    
+    KolmogorovSmirnov.reject_null(data = data)
+
+def global_test(data: list):
+    
+    histogram = Histogram(data = data, interval_nb = 10)
+    
+    histogram.save_plot()
+    
+    test_khi_square(histogram = histogram)
+    
+    test_kolmogorov_smirnov(data=data)
+
+    print("\n -----------------------END TEST----------------------\n")
+    
 if __name__ == "__main__":
     
     file_path = PathFinder.get_complet_path("files/e2M.txt")
     iterator = EIterator(file_path = file_path)
     generator = EGenerator(iterator = iterator, num_decimals = 15)
-    data = []
+    data = generator.generate_all_value()
     
-    while True:
-        number = generator.generate()
-        if number != -1:
-            data.append(number)
-        else:
-            print("The length of the list is: "+ str(len(data)))
-            print("No more number in the list")
-            break
+    global_test(data = data)
 
-    histogram = Histogram(data=data, interval_nb = 10)
-    histogram.save_plot()
 
-    khi_square = KhiSquareTest.from_distribution(histogram.hist)
 
-    print(khi_square)
-    
-    KhiSquareTest.is_goodness_fit(data)
+
