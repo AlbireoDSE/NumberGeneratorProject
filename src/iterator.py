@@ -58,7 +58,7 @@ class EIterator:
             
         """
         if self.index >= len(self.buffer):
-            self.buffer = self.file.read(self.chunk_size).strip()
+            self.buffer = self.file.read(self.chunk_size).rstrip().replace("\n", "")
             self.index = 0
             if not self.buffer:
                 self.file.close()

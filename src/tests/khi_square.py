@@ -1,11 +1,11 @@
 
-class KhiSquareTest(object):
+class KhiSquareTest:
 
-    def from_histograms(self, hist1: [], hist2: []):
+    def from_histograms(self, hist1: list, hist2: list):
         return self.__chi_square_stat(hist2, hist1)
 
-    def from_distribution(self, hist: []):
-        interval_nb = len(hist) #compute histogram bins
+    def from_distribution(self, hist: list):
+        interval_nb = len(hist) 
         total_obs = sum(hist)
         p_i = 1 / interval_nb #proba théorique, loi uniforme
         expected = [total_obs * p_i] * interval_nb

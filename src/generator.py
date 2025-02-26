@@ -28,6 +28,8 @@ class EGenerator:
         Returns:
             int: generated number
         """
-        decimals = "".join(next(self.iterator) for _ in range(self.num_decimals))
-        return int(decimals) / self.divider
-
+        try:
+            decimals = "".join(next(self.iterator) for _ in range(self.num_decimals))
+            return int(decimals) / self.divider
+        except Exception as e:
+            return -1
