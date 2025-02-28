@@ -1,4 +1,5 @@
 from histogram import Histogram
+from tests.poker_test import PokerTest
 from tests.khi_square import KhiSquareTest
 from tests.kolmogorov_smirnov import KolmogorovSmirnov
 from generator import EGenerator
@@ -27,7 +28,13 @@ def global_test(data: list):
     test_kolmogorov_smirnov(data=data)
 
     print("\n -----------------------END TEST----------------------\n")
-    
+
+    print("\n ------------------Poker------------------\n")
+
+    print(PokerTest.stirling_number(5, 2))
+
+    print("\n -----------------End Test----------------\n")
+
 if __name__ == "__main__":
     
     file_path = PathFinder.get_complet_path("files/e2M.txt")
