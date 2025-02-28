@@ -1,4 +1,5 @@
 from iterator import EIterator
+from decimal import Decimal
 
 class EGenerator:
     """
@@ -6,8 +7,10 @@ class EGenerator:
     
     Attributes:
         iterator (EIterator): Iterator class to iterate over the decimal
-        num_decimals (int): The number of decimal wanted to be used. Defaults = 10.
+        num_decimals (int): The number of decimal wanted to be used. Defaults = 10 MAX = 15.
     """
+    
+    __MAX = 15  # Maximum allowed decimal places
 
     def __init__(self, iterator: EIterator, num_decimals: int = 10):
         """
@@ -15,8 +18,11 @@ class EGenerator:
 
         Args:
             iterator (EIterator): Iterator class to iterate over the decimal
-            num_decimals (int): The number of decimal wanted to be used. Defaults = 10.
+            num_decimals (int): The number of decimal wanted to be used. Defaults = 10 MAX = 15.
         """
+        if num_decimals > EGenerator.__MAX:  # Use '>' instead of '>='
+                    raise ValueError(f"num_decimals ({num_decimals}) exceeds the maximum allowed ({EGenerator.__MAX}).")
+        
         self.iterator = iterator
         self.num_decimals = num_decimals
         self.divider = 10 ** self.num_decimals
@@ -30,7 +36,7 @@ class EGenerator:
         """
         try:
             decimals = "".join(next(self.iterator) for _ in range(self.num_decimals))
-            return int(decimals) / self.divider
+            return float(decimals) / self.divider
         
         except Exception as e:
             return None
