@@ -31,7 +31,9 @@ def global_test(data: list):
 
     print("\n ------------------Poker------------------\n")
 
-    print(PokerTest.stirling_number(5, 2))
+    categories, chi2_stat = PokerTest.compute(data)
+    print(categories)
+    print(chi2_stat)
 
     print("\n -----------------End Test----------------\n")
 
