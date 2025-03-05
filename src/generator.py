@@ -20,7 +20,7 @@ class EGenerator:
             iterator (EIterator): Iterator class to iterate over the decimal
             num_decimals (int): The number of decimal wanted to be used. Defaults = 10 MAX = 15.
         """
-        if num_decimals > EGenerator.__MAX:  # Use '>' instead of '>='
+        if num_decimals > EGenerator.__MAX: 
                     raise ValueError(f"num_decimals ({num_decimals}) exceeds the maximum allowed ({EGenerator.__MAX}).")
         
         self.iterator = iterator
