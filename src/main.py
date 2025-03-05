@@ -41,7 +41,7 @@ if __name__ == "__main__":
     
     file_path = PathFinder.get_complet_path("files/e2M.txt")
     iterator = EIterator(file_path = file_path)
-    generator = EGenerator(iterator = iterator, num_decimals = 15)
+    generator = EGenerator(iterator = iterator, num_decimals = 10, period = 1)
     data = generator.generate_all_value()
     
     global_test(data = data)
