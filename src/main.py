@@ -1,4 +1,5 @@
 from histogram import Histogram
+from tests.coupon_collector_test import CouponCollectorTest
 from tests.poker_test import PokerTest
 from tests.khi_square import KhiSquareTest
 from tests.kolmogorov_smirnov import KolmogorovSmirnov
@@ -23,17 +24,23 @@ def global_test(data: list):
     
     histogram.save_plot()
     
-    test_khi_square(histogram = histogram)
+    #test_khi_square(histogram = histogram)
     
-    test_kolmogorov_smirnov(data=data)
+    #test_kolmogorov_smirnov(data=data)
 
     print("\n -----------------------END TEST----------------------\n")
 
+    print("\n ------------------Coupon Collector------------------\n")
+
+    CouponCollectorTest.compute(data, 5)
+
+    print("\n -----------------End Test----------------\n")
+
     print("\n ------------------Poker------------------\n")
 
-    categories, chi2_stat = PokerTest.compute(data)
-    print(categories)
-    print(chi2_stat)
+    #categories, chi2_stat = PokerTest.compute(data)
+    #print(categories)
+    #print(chi2_stat)
 
     print("\n -----------------End Test----------------\n")
 

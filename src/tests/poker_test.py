@@ -4,6 +4,8 @@ from collections import defaultdict, Counter
 from histogram import Histogram
 from tests.khi_square import KhiSquareTest
 
+from utils.calculator import Calculator
+
 
 class PokerTest:
 
@@ -16,22 +18,13 @@ class PokerTest:
             dict[n] += 1
         return dict
 
-    @staticmethod
-    def stirling_number(k, r):
-        if k == r == 0:
-            return 1
-        if k == r or r == 1:
-            return 1
-        if k == 0 or r == 0 or r > k:
-            return 0
-        return PokerTest.stirling_number(k - 1, r - 1) + r * PokerTest.stirling_number(k - 1, r)
 
     @staticmethod
     def stirling_prob(k, d):
         prob = {}
 
         for r in range(1, k + 1):  # r correspond to the number of distincts groups
-            S_kr = PokerTest.stirling_number(k, r)
+            S_kr = Calculator.stirling_number(k, r)
 
             # Computing of d(d-1)...(d-r+1)
             prod_d = 1
