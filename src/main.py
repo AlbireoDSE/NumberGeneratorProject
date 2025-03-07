@@ -1,4 +1,4 @@
-from histogram import Histogram
+from histogram import Histogram, PlotType
 from tests.poker_test import PokerTest
 from tests.khi_square import KhiSquareTest
 from tests.kolmogorov_smirnov import KolmogorovSmirnov
@@ -19,7 +19,7 @@ def test_kolmogorov_smirnov(data: list):
 
 def global_test(data: list):
     
-    histogram = Histogram(data = data, interval_nb = 10)
+    histogram = Histogram(data = data, num_interval = 10)
     
     histogram.save_plot()
     
@@ -36,15 +36,25 @@ def global_test(data: list):
     print(chi2_stat)
 
     print("\n -----------------End Test----------------\n")
+    
+def decimal_test(file_path: str, num_interval: int = 10, range_max: int = 10):
+    
+    iterator = EIterator(file_path = file_path)
+    
+    generator = EGenerator(iterator = iterator, num_decimals = 1, period = 1, prefix="")
+    
+    data = generator.generate_all_value()
+    
+    histogram = Histogram(data = data, num_interval = num_interval, range_max = range_max)
+    
+    histogram.save_plot(plot_type = PlotType.BAR)
 
 if __name__ == "__main__":
     
     file_path = PathFinder.get_complet_path("files/e2M.txt")
-    iterator = EIterator(file_path = file_path)
-    generator = EGenerator(iterator = iterator, num_decimals = 10, period = 1)
-    data = generator.generate_all_value()
     
-    global_test(data = data)
+    decimal_test(file_path = file_path)
+
 
 
 

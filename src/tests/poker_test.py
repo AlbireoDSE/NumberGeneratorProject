@@ -77,7 +77,7 @@ class PokerTest:
         poker_counts = {k: v * len(sample) for k, v in poker_probs.items()}
 
 
-        hist = Histogram(data = poker_probs, interval_nb= 10)
+        hist = Histogram(data = poker_probs, num_interval= 10)
         chi_square_stat = KhiSquareTest().compute(hist)
 
         return categories, chi_square_stat
