@@ -55,6 +55,8 @@ def decimal_test(file_path: str, num_interval: int = 10, range_max: int = 10):
     histogram = Histogram(data = data, num_interval = num_interval, range_max = range_max)
     
     histogram.save_plot(plot_type = PlotType.BAR)
+    
+    test_khi_square(histogram = histogram)
 
 if __name__ == "__main__":
     

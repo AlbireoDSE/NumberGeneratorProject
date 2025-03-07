@@ -33,9 +33,9 @@ class KhiSquareTest:
         critical_value = stats.chi2.ppf(1 - alpha, degree_freedom)
         
         if chi_square <= critical_value :
-            print("Distribution is close to uniform so it's good")
+            print("Verily, the distribution is well-balanced, as though guided by divine order !")
         else:
-            print("Distribution significantly differs from uniform so it's a big NO NO")
+            print("Verily, the distribution is corrupted and uneven, for the Deceiver hath sown disorder among the number !")
         
         
     @staticmethod
