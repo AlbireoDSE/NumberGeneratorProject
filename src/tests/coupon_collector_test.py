@@ -2,6 +2,7 @@ from collections import defaultdict
 from math import factorial
 
 from utils.calculator import Calculator
+from tests.khi_square import KhiSquareTest
 
 
 class CouponCollectorTest:
@@ -17,15 +18,14 @@ class CouponCollectorTest:
             collected[hist_interval] += 1
             trials += 1
 
-        hist = [0] * interval_nb
+        hist = [collected[i] for i in range(interval_nb)]
 
-        for key in collected:
-            hist[key] = collected[key]
+        #compute Sr probability
 
-        #collected = dict(sorted(collected.items(), reverse=True))
-        print(collected)
-        print(hist)
-        print(trials)
+        #perform Khi_square with hist and compare with Sr
+        KhiSquareTest.is_goodness_fit(hist)
+
+
 
     @staticmethod
     def p_r(r, d):
@@ -34,3 +34,8 @@ class CouponCollectorTest:
     @staticmethod
     def q_r(r, d):
         return 1 - CouponCollectorTest.p_r(r, d)
+
+    @staticmethod
+    def s_r(r, d):
+        if r < d: return 0
+        return (factorial(d)/d**r) * (Calculator.stirling_number(r, d) - d* Calculator.stirling_number(r-1, d))
