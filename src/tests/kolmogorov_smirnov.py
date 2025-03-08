@@ -15,7 +15,7 @@ class KolmogorovSmirnov:
     """
     
     @staticmethod
-    def reject_null(data: list, alpha: float = 0.05) -> None:
+    def is_goodness_fit(data: list, alpha: float = 0.05) -> None:
         """
         Performs the Kolmogorov-Smirnov test to check if the given data follows a uniform(0,1) distribution.
 

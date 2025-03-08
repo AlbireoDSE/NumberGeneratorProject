@@ -12,7 +12,7 @@ class KhiSquareTest:
     def is_goodness_fit(hist: list, alpha: float = 0.05) -> None:
         """
         Computes the Chi-Square statistic for a given histogram and determine if
-        it's 
+        the frequencies are following a the uniform law
 
         Args:
             hist (list): A list of observed frequencies for each interval.
@@ -21,8 +21,8 @@ class KhiSquareTest:
             float: The Chi-Square test statistic.
             
         More informations:
-            H0: If X² > critical value -> The distribution significantly differs from uniform (not good).
-            H1: If χ² ≤ critical value -> The distribution is close to uniform (good).
+            H0: If χ² ≤ critical value -> The distribution is close to uniform (good). 
+            H1: If X² > critical value -> The distribution significantly differs from uniform (not good).
 
         """
         

@@ -17,7 +17,7 @@ def test_kolmogorov_smirnov(data: list):
     
     print("\n ------------------Kolmogorov Smirnov------------------\n")
     
-    KolmogorovSmirnov.reject_null(data = data)
+    KolmogorovSmirnov.is_goodness_fit(data = data)
 
 def global_test(data: list):
     
@@ -50,7 +50,7 @@ def decimal_test(file_path: str, num_interval: int = 10, range_max: int = 10):
     
     iterator = EIterator(file_path = file_path)
     
-    generator = EGenerator(iterator = iterator, num_decimals = 1, period = 1, prefix="")
+    generator = EGenerator(iterator = iterator, num_decimals = 1, period = 1, prefix = "")
     
     data = generator.generate_all_value()
     

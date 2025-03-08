@@ -79,7 +79,10 @@ class Histogram:
         
         plt.figure(figsize=(8, 5))
         
-        categories = [i for i in range(self.range_min, self.range_max)]
+        devider = self.range_max/self.num_interval 
+        
+        categories = [str(i/devider) for i in range(self.range_min, self.range_max)]
+        
         bars = plt.bar(categories, self.hist, edgecolor="black", alpha=0.7)
 
         for bar in bars:
@@ -109,18 +112,18 @@ class Histogram:
         """
         plt.figure(figsize=(8, 5))
         
-        counts, bins, _ = plt.hist(self.data, bins=self.num_interval, 
+        counts, bins, _ = plt.hist(self.data, bins = self.num_interval,
                                  range=(self.range_min, self.range_max), 
                                  edgecolor="black", alpha=0.7, density=False)
 
-        # Add labels on top of each bar
         for count, bin_edge in zip(counts, bins[:-1]):
-            plt.text(bin_edge + (bins[1] - bins[0]) / 2, count + 0.5,  # Center text
+            plt.text(bin_edge + (bins[1] - bins[0]) / 2, count + 0.5,
                     str(int(count)), ha='center', va='bottom', fontsize=10)
 
         plt.xlabel("Value Range")
         plt.ylabel("Frequency")
         plt.title("Histogram")
+        
         plt.grid(axis="y", linestyle="--", alpha=0.8)
 
         plt.axhline(self.mean, color='red', linestyle='dashed', linewidth=2)
