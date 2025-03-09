@@ -1,4 +1,5 @@
 import scipy.stats as stats
+from histogram import Histogram
 
 class KhiSquareTest:
     """
@@ -9,29 +10,33 @@ class KhiSquareTest:
     """
     
     @staticmethod
-    def is_goodness_fit(hist: list, alpha: float = 0.05) -> None:
+    def is_goodness_fit(histogram: Histogram, alpha: float = 0.05) -> None:
         """
         Computes the Chi-Square statistic for a given histogram and determine if
         the frequencies are following a the uniform law
 
         Args:
-            hist (list): A list of observed frequencies for each interval.
+            histogram (Histogram): A object containing usefull information like the frequency for each interval, the mean, etc.
+            alpha (float): The significance level used to determine the critical value for rejecting the H0. 
 
         Returns:
             float: The Chi-Square test statistic.
             
         More informations:
-            H0: If χ² ≤ critical value -> The distribution is close to uniform (good). 
-            H1: If X² > critical value -> The distribution significantly differs from uniform (not good).
+            H0: If χ² ≤ critical value -> The distribution follow the uniform law (good). 
+            H1: If X² > critical value -> The distribution does not follow the uniform law (not good).
 
         """
         
-        degree_freedom = len(hist) - 1
+        degree_freedom = histogram.num_interval - 1
         
-        chi_square = KhiSquareTest.compute(hist=hist)
+        expected = [histogram.mean] * histogram.num_interval
+        
+        chi_square = KhiSquareTest.compute(observed = histogram.observed, expected = expected)
         
         critical_value = stats.chi2.ppf(1 - alpha, degree_freedom)
         
+        print(chi_square, critical_value)
         if chi_square <= critical_value :
             print("Verily, the distribution is well-balanced, as though guided by divine order !")
         else:
@@ -39,45 +44,28 @@ class KhiSquareTest:
         
         
     @staticmethod
-    def compute(hist: list) -> float:
+    def compute(observed: list, expected: list) -> float:
         """
         Computes the Chi-Square statistic for a given histogram, assuming 
         a uniform expected distribution.
 
         Args:
-            hist (list): A list of observed frequencies for each interval.
+            observed (list): A list of observed frequencies for each interval.
+            expected (list): A list of expected frequencies for each interval.
 
         Returns:
             float: The Chi-Square test statistic.
 
         Example:
             >>> khi_test = KhiSquareTest()
-            >>> khi_test.from_distribution([10, 15, 12, 13])
+            >>> khi_test.compute([10, 15, 12, 13], [12.5, 12.5, 12.5, 12.5])
             1.04
-        """
-        
-        interval_nb = len(hist) 
-        total_obs = sum(hist)
-        expected = [total_obs / interval_nb] * interval_nb
-
-        return KhiSquareTest.__chi_square_stat(hist, expected)
-
-    @staticmethod
-    def __chi_square_stat(hist: list, expected: list):
-        """
-        Computes the Chi-Square statistic given observed and expected frequencies.
-
-        Args:
-            hist (list): A list of observed frequencies.
-            expected (list): A list of expected frequencies.
-
-        Returns:
-            float: The Chi-Square test statistic.
         """
         
         chi_square = 0
         
-        for observed, expected in zip(hist, expected):
+        for observed, expected in zip(observed, expected):
             chi_square += ((observed - expected) ** 2) / expected
-            
+        
         return chi_square
+        

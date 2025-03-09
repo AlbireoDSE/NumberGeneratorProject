@@ -36,7 +36,7 @@ class Histogram:
         self.num_interval = num_interval
         self.range_min = range_min
         self.range_max = range_max
-        self.hist = [0] * num_interval
+        self.observed = [0] * num_interval
         self.mean = len(self.data)/self.num_interval
         
         self._create()
@@ -59,7 +59,7 @@ class Histogram:
             if index >= self.num_interval:
                 index = -1
 
-            self.hist[index] += 1
+            self.observed[index] += 1
         
             
     def save_plot(self, plot_type: PlotType = PlotType.HiSTOGRAM) -> None:
@@ -83,21 +83,21 @@ class Histogram:
         
         categories = [str(i/devider) for i in range(self.range_min, self.range_max)]
         
-        bars = plt.bar(categories, self.hist, edgecolor="black", alpha=0.7)
+        bars = plt.bar(categories, self.observed, edgecolor="black", alpha=0.7)
 
         for bar in bars:
             height = bar.get_height()
             plt.text(bar.get_x() + bar.get_width() / 2, height + 0.5,
                     str(height), ha='center', va='bottom', fontsize=10)
 
-        plt.xlabel("Values")
-        plt.ylabel("Frequency")
-        plt.title("Bar Chart")
+        plt.xlabel("Valeur")
+        plt.ylabel("Fréquence")
+        plt.title("Répartition des décimales")
         plt.grid(axis="y", linestyle="--", alpha=0.8)
 
         plt.axhline(self.mean, color='red', linestyle='dashed', linewidth=2)
         
-        plt.text(self.range_max + 0.6, self.mean, 'Mean:\n{:.2f}'.format(self.mean), color="red")
+        plt.text(self.range_max, self.mean, 'Moyenne:\n{:.2f}'.format(self.mean), color="red")
 
         plt.savefig(PathFinder.get_complet_path("images/my_bar.png"))
             
@@ -120,15 +120,15 @@ class Histogram:
             plt.text(bin_edge + (bins[1] - bins[0]) / 2, count + 0.5,
                     str(int(count)), ha='center', va='bottom', fontsize=10)
 
-        plt.xlabel("Value Range")
-        plt.ylabel("Frequency")
-        plt.title("Histogram")
+        plt.xlabel("Intervalle")
+        plt.ylabel("Fréquence")
+        plt.title("Histogramme")
         
         plt.grid(axis="y", linestyle="--", alpha=0.8)
 
         plt.axhline(self.mean, color='red', linestyle='dashed', linewidth=2)
         
-        plt.text(self.range_max + 0.6, self.mean, 'Mean:\n{:.2f}'.format(self.mean), color="red")
+        plt.text(self.range_max + 0.6, self.mean, 'Moyenne:\n{:.2f}'.format(self.mean), color="red")
         
         plt.savefig(PathFinder.get_complet_path("images/my_histogram.png"))
         

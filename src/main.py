@@ -1,5 +1,4 @@
 from histogram import Histogram, PlotType
-from tests.gap_test import GapTest
 from tests.coupon_collector_test import CouponCollectorTest
 from tests.poker_test import PokerTest
 from tests.khi_square import KhiSquareTest
@@ -11,7 +10,8 @@ from utils.path_finder import PathFinder
 def test_khi_square(histogram: list):
     
     print("\n ----------------------KHI SQUARE----------------------\n")
-    KhiSquareTest.is_goodness_fit(hist = histogram.hist)
+    
+    KhiSquareTest.is_goodness_fit(histogram = histogram)
 
 def test_kolmogorov_smirnov(data: list):
     
@@ -34,7 +34,7 @@ def global_test(data: list):
     print("\n ------------------Coupon Collector------------------\n")
 
     CouponCollectorTest.compute(data, 5)
-    gap = GapTest.compute(samples=data)
+    # gap = GapTest.compute(samples=data)
 
     print("\n -----------------End Test----------------\n")
 
@@ -48,27 +48,37 @@ def global_test(data: list):
     
 def decimal_test(file_path: str, num_interval: int = 10, range_max: int = 10):
     
+    print("\n ------------Start Decimal Test-----------\n")
+    
+    # GETTING ALL THE DECIMAL
+    
     iterator = EIterator(file_path = file_path)
     
     generator = EGenerator(iterator = iterator, num_decimals = 1, period = 1, prefix = "")
     
     data = generator.generate_all_value()
     
+    # GENERATE THE HISTOGRAM (BAR CHART)
+    
     histogram = Histogram(data = data, num_interval = num_interval, range_max = range_max)
     
     histogram.save_plot(plot_type = PlotType.BAR)
 
+    # KHI SQUARE TEST
+    
     test_khi_square(histogram = histogram)
+    
+    # KOLMOGOROV SMIRNOV TEST
+    
+    test_kolmogorov_smirnov(data = data)
+    
+    print("\n -------------End Decimal Test------------\n")
 
 if __name__ == "__main__":
     
     file_path = PathFinder.get_complet_path("files/e2M.txt")
 
-    iterator = EIterator(file_path=file_path)
-    generator = EGenerator(iterator=iterator, num_decimals=1, period=1)
-    data = generator.generate_all_value()
-
-    global_test(data)
+    # global_test(data)
 
     decimal_test(file_path = file_path)
 
