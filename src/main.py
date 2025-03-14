@@ -1,4 +1,5 @@
 from histogram import Histogram, PlotType
+from tests.gap_test import GapTest
 from tests.coupon_collector_test import CouponCollectorTest
 from tests.poker_test import PokerTest
 from tests.khi_square import KhiSquareTest
@@ -34,7 +35,7 @@ def global_test(data: list):
     print("\n ------------------Coupon Collector------------------\n")
 
     CouponCollectorTest.compute(data, 5)
-    # gap = GapTest.compute(samples=data)
+
 
     print("\n -----------------End Test----------------\n")
 
@@ -54,7 +55,7 @@ def decimal_test(file_path: str, num_interval: int = 10, range_max: int = 10):
     
     iterator = EIterator(file_path = file_path)
     
-    generator = EGenerator(iterator = iterator, num_decimals = 1, period = 1, prefix = "")
+    generator = EGenerator(iterator = iterator, num_decimals = 1, period = 1)
     
     data = generator.generate_all_value()
     
@@ -73,6 +74,8 @@ def decimal_test(file_path: str, num_interval: int = 10, range_max: int = 10):
     test_kolmogorov_smirnov(data = data)
     
     print("\n -------------End Decimal Test------------\n")
+
+    GapTest.compute(samples=data)
 
 if __name__ == "__main__":
     

@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d24ee00c-c2f7-4fe6-8762-32290a6d297b" name="Changes" comment="Init project">
-      <change afterPath="$PROJECT_DIR$/src/tests/gap_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/images/my_histogram.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/my_histogram.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/ks_test.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/ks_test.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/my_bar.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/my_bar.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/coupon_collector_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/coupon_collector_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,8 +142,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/tests/gap_test.py</url>
-          <line>9</line>
-          <option name="timeStamp" value="11" />
+          <line>24</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
