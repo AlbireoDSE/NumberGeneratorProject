@@ -1,5 +1,4 @@
-from iterator import EIterator
-from decimal import Decimal
+from utilities.iterator import EIterator
 
 class EGenerator:
     """
@@ -52,7 +51,7 @@ class EGenerator:
         except Exception as e:
             return None
         
-    def generate_all_value(self) -> list:
+    def generate_all_value(self, verbose: int = 1) -> list:
         """_summary_
 
         Returns:
@@ -65,8 +64,8 @@ class EGenerator:
             number_list.append(number)
             number = self.generate()
 
-        
-        print("All the decimal as been used:")
-        print(f"\t- Number of decimal after 0.: {self.num_decimals}")
-        print(f"\t- The length of the list is: {str(len(number_list))}")
+        if verbose == 1:
+            print("All the decimal as been used:")
+            print(f"\t- Number of decimal after 0.: {self.num_decimals}")
+            print(f"\t- The length of the list is: {str(len(number_list))}")
         return number_list

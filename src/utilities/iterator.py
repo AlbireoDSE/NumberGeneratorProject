@@ -23,9 +23,9 @@ class EIterator:
         self.buffer = ""
         self.index = 0
         
-        self.reach_decimal()
+        self.__reach_decimal()
         
-    def reach_decimal(self):
+    def __reach_decimal(self):
         """
         Skips characters in the file until the first decimal point ('.') is found.
         

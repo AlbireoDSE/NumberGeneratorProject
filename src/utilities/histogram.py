@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from utils.path_finder import PathFinder
+from utilities.path_finder import PathFinder
 from enum import Enum
 
 class PlotType(Enum):

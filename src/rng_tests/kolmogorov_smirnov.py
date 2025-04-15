@@ -3,7 +3,7 @@ import numpy as np
 import scipy.stats as stats
 import matplotlib.pyplot as plt
 from collections import Counter
-from utils.path_finder import PathFinder
+from utilities.path_finder import PathFinder
 
 class KolmogorovSmirnov:
      
@@ -39,7 +39,7 @@ class KolmogorovSmirnov:
     
     
     @staticmethod
-    def compute(data: list, save_plot: bool = True) -> tuple:
+    def compute(data: list, save_plot: bool = True) -> float:
         
         data = np.sort(data)
         

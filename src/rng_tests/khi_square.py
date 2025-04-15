@@ -1,5 +1,5 @@
 import scipy.stats as stats
-from histogram import Histogram
+from utilities.histogram import Histogram
 
 class KhiSquareTest:
     """

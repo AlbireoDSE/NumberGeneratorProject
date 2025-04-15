@@ -1,10 +1,10 @@
-from histogram import Histogram, PlotType
+from utilities.histogram import Histogram, PlotType
 from rng_tests.gap_test import GapTest
 from rng_tests.khi_square import KhiSquareTest
 from rng_tests.kolmogorov_smirnov import KolmogorovSmirnov
-from generator import EGenerator
-from iterator import EIterator
-from utils.path_finder import PathFinder
+from utilities.generator import EGenerator
+from utilities.iterator import EIterator
+from utilities.path_finder import PathFinder
 
 def test_khi_square(histogram: list):
     
