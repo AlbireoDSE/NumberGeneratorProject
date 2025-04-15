@@ -1,9 +1,7 @@
 from histogram import Histogram, PlotType
-from tests.gap_test import GapTest
-from tests.coupon_collector_test import CouponCollectorTest
-from tests.poker_test import PokerTest
-from tests.khi_square import KhiSquareTest
-from tests.kolmogorov_smirnov import KolmogorovSmirnov
+from rng_tests.gap_test import GapTest
+from rng_tests.khi_square import KhiSquareTest
+from rng_tests.kolmogorov_smirnov import KolmogorovSmirnov
 from generator import EGenerator
 from iterator import EIterator
 from utils.path_finder import PathFinder
@@ -31,19 +29,6 @@ def global_test(data: list):
     #test_kolmogorov_smirnov(data=data)
 
     print("\n -----------------------END TEST----------------------\n")
-
-    print("\n ------------------Coupon Collector------------------\n")
-
-    CouponCollectorTest.compute(data, 5)
-
-
-    print("\n -----------------End Test----------------\n")
-
-    print("\n ------------------Poker------------------\n")
-
-    #categories, chi2_stat = PokerTest.compute(data)
-    #print(categories)
-    #print(chi2_stat)
 
     print("\n -----------------End Test----------------\n")
     

@@ -36,7 +36,6 @@ class KhiSquareTest:
         
         critical_value = stats.chi2.ppf(1 - alpha, degree_freedom)
         
-        print(chi_square, critical_value)
         if chi_square <= critical_value :
             print("Verily, the distribution is well-balanced, as though guided by divine order !")
         else:

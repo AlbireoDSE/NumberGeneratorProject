@@ -52,7 +52,7 @@ class KolmogorovSmirnov:
         observed_cumulative_frequency = np.cumsum(observed_frequency)
         
         theorical_cumulative_frequency = np.arange(1, len(observed_cumulative_frequency) + 1) / len(observed_cumulative_frequency)
-        
+                
         absolute_difference = np.abs(observed_cumulative_frequency - theorical_cumulative_frequency)
         
         max_diff_index = np.argmax(absolute_difference)

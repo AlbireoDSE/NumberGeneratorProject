@@ -2,7 +2,7 @@ from collections import Counter
 
 import numpy as np
 
-from tests.khi_square import KhiSquareTest
+from rng_tests.khi_square import KhiSquareTest
 
 
 class GapTest:
