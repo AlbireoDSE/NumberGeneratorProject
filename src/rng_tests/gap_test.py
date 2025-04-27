@@ -34,7 +34,7 @@ class GapTest:
         in_gap = True
         for i, number in enumerate(samples):
             if a <= number < b:
-                marked_index.append(i)  # mark number in interval
+                marked_index.append(i) 
                 if in_gap:  # find new number in interval, gap end
                     gaps.append(gap_size)
                     in_gap = False
