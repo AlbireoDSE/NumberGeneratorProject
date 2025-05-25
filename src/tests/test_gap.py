@@ -18,7 +18,7 @@ class TestGap(unittest.TestCase):
         
         chi_square = GapTest.compute(data = np.random.rand(100))
 
-        critical_value = KhiSquareTest.compute_critical_value(1 - alpha, max_gap_size)
+        critical_value = KhiSquareTest.compute_critical_value(alpha, max_gap_size)
 
         self.assertLessEqual(chi_square, critical_value)
 
@@ -26,9 +26,9 @@ class TestGap(unittest.TestCase):
         alpha = 0.05
         max_gap_size = 10
         
-        chi_square = GapTest.compute(data = np.clip(np.random.normal(loc=0.8, scale=0.1, size=100), 0.0, 1.0).tolist())
+        chi_square = GapTest.compute(data = np.clip(np.random.normal(loc=0.2, scale=0.1, size=100), 0.0, 1.0).tolist())
 
-        critical_value = KhiSquareTest.compute_critical_value(1 - alpha, max_gap_size)
+        critical_value = KhiSquareTest.compute_critical_value(alpha, max_gap_size)
 
         self.assertGreater(chi_square, critical_value)
     

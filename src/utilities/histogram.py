@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from utilities.path_finder import PathFinder
 from enum import Enum
+import numpy as np
 
 class PlotType(Enum):
     BAR = "bar"
@@ -15,7 +16,7 @@ class Histogram:
     number of intervals, given a range of values.
     
     Attributes:
-        data (list of float): The input numerical data to be binned.
+        data (list of float): The input numerical data to be used.
         interval_nb (int): The number of intervals (bins) in the histogram.
         range_min (float, optional): The minimum value of the range. Defaults = 0.
         range_max (float, optional): The maximum value of the range. Defaults = 1.
@@ -27,19 +28,29 @@ class Histogram:
         Initializes the histogram with data and specified parameters.
         
         Args:
-            data (list of float): The input numerical data to be binned.
+            data (list of float): The input numerical data to be used.
             interval_nb (int): The number of intervals (bins) in the histogram.
             range_min (float, optional): The minimum value of the range. Defaults = 0.
             range_max (float, optional): The maximum value of the range. Defaults = 1.
         """
         self.data = data
+        self.number_data = len(data)
         self.num_interval = num_interval
         self.range_min = range_min
         self.range_max = range_max
         self.observed = [0] * num_interval
-        self.mean = len(self.data)/self.num_interval
+        self.mean = self.number_data / num_interval
+        self.categories = [str(i/(self.range_max/self.num_interval)) for i in range(self.range_min, self.range_max)]
         
         self._create()
+        
+    def _median(self) -> float:
+        mid = self.number_data / 2
+        cumsum = np.cumsum(self.observed)
+        above_mid_index = np.where(cumsum >= mid)[0][0]
+        
+        return float(self.categories[above_mid_index]) / (cumsum[above_mid_index] / mid)
+        
 
     def _create(self) -> None:
         """
@@ -60,7 +71,6 @@ class Histogram:
                 index = -1
 
             self.observed[index] += 1
-        
             
     def save_plot(self, plot_type: PlotType = PlotType.HiSTOGRAM) -> None:
         """
@@ -76,14 +86,12 @@ class Histogram:
             self.save_bar()
             
     def save_bar(self) -> None:
+                
+        median = self._median()
         
         plt.figure(figsize=(8, 5))
         
-        devider = self.range_max/self.num_interval 
-        
-        categories = [str(i/devider) for i in range(self.range_min, self.range_max)]
-        
-        bars = plt.bar(categories, self.observed, edgecolor="black", alpha=0.7)
+        bars = plt.bar(self.categories, self.observed, edgecolor="black", alpha=0.7)
 
         for bar in bars:
             height = bar.get_height()
@@ -98,6 +106,10 @@ class Histogram:
         plt.axhline(self.mean, color='red', linestyle='dashed', linewidth=2)
         
         plt.text(self.range_max, self.mean, 'Moyenne:\n{:.2f}'.format(self.mean), color="red")
+        
+        plt.axvline(x=median, color='green', linestyle='dotted', linewidth=2)
+        
+        plt.text(median, 0, 'Médiane:\n{:.2f}'.format(median), color="green")
 
         plt.savefig(PathFinder.get_complet_path("images/my_bar.png"))
             
@@ -110,6 +122,9 @@ class Histogram:
         and frequency counts on the y-axis.
 
         """
+        
+        median = self._median()
+        
         plt.figure(figsize=(8, 5))
         
         counts, bins, _ = plt.hist(self.data, bins = self.num_interval,
@@ -129,6 +144,10 @@ class Histogram:
         plt.axhline(self.mean, color='red', linestyle='dashed', linewidth=2)
         
         plt.text(self.range_max + 0.6, self.mean, 'Moyenne:\n{:.2f}'.format(self.mean), color="red")
+        
+        plt.axvline(x=median, color='green', linestyle='dotted', linewidth=2)
+        
+        plt.text(median, 0, 'Médiane:\n{:.2f}'.format(median), color="green")
         
         plt.savefig(PathFinder.get_complet_path("images/my_histogram.png"))
         

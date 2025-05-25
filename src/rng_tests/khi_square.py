@@ -28,13 +28,17 @@ class KhiSquareTest:
 
         """
         
-        degree_freedom = histogram.num_interval - 1
-        
         expected = [histogram.mean] * histogram.num_interval
         
         chi_square = KhiSquareTest.compute(observed = histogram.observed, expected = expected)
         
-        critical_value = KhiSquareTest.compute_critical_value(1 - alpha, degree_freedom)
+        print(chi_square)
+        
+        print(stats.chisquare(f_obs=histogram.observed, f_exp=expected))
+        
+        critical_value = KhiSquareTest.compute_critical_value(alpha,  histogram.num_interval - 1)
+        
+        print(critical_value)
         
         if chi_square <= critical_value :
             print("Verily, the distribution is well-balanced, as though guided by divine order !")

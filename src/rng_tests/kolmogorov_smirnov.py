@@ -30,7 +30,7 @@ class KolmogorovSmirnov:
         
         ks_value = KolmogorovSmirnov.compute(data = data)
         
-        critical_value = KolmogorovSmirnov.compute_critical_value(1 - alpha, n_samples)
+        critical_value = KolmogorovSmirnov.compute_critical_value(alpha, n_samples)
         
         if ks_value <= critical_value :
             print("Verily, the distribution is well-balanced, as though guided by divine order !")
