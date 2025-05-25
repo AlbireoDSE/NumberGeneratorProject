@@ -7,7 +7,7 @@ from rng_tests.khi_square import KhiSquareTest
 class GapTest:
 
     @staticmethod
-    def is_goodness_fit(data: list, alpha: float = 0.05, a: float = 0, b: float = 0.5, max_gap_size: int = 10,  return_bol: bool = False) ->  None | bool:
+    def is_goodness_fit(data: list, alpha: float = 0.05, a: float = 0, b: float = 0.5, max_gap_size: int = 10, range_max: int = 1, return_bol: bool = False) ->  None | bool:
         """
         Computes the X statistic for a given histogram and determine if
         the frequencies are following a the uniform law
@@ -24,7 +24,7 @@ class GapTest:
             H1: If X² > critical value -> The distribution does not follow the uniform law (not good).
         """
         
-        chi_square = GapTest.compute(data = data, a = a, b = b, max_gap_size = max_gap_size)
+        chi_square = GapTest.compute(data = data, a = a, b = b, max_gap_size = max_gap_size, range_max = range_max)
         
         critical_value = KhiSquareTest.compute_critical_value(alpha = alpha, degree_freedom = max_gap_size)
         
@@ -42,11 +42,11 @@ class GapTest:
             
             
     @staticmethod
-    def compute(data: list, a: float = 0, b: float = 0.5, max_gap_size: int = 10):
+    def compute(data: list, a: float = 0, b: float = 0.5, max_gap_size: int = 10, range_max: int = 1):
 
         probability = b - a 
         
-        gaps = GapTest.__make_gaps(a = a, b = b, samples = data)
+        gaps = GapTest.__make_gaps(a = a, b = b, samples = data, range_max = range_max)
 
         gaps_counts = GapTest.__count_gaps(gaps = gaps, max_gap_size = max_gap_size)
 
@@ -56,17 +56,18 @@ class GapTest:
 
         expected_probs *= len(gaps)
 
-        # print("observed: ", gaps_counts)
-        # print("expected: ", expected_probs)
+        print(len(gaps))
+        print("observed: ", gaps_counts)
+        print("expected: ", expected_probs)
         return KhiSquareTest.compute(observed = gaps_counts, expected = expected_probs)
 
     @staticmethod
-    def __make_gaps(a: float, b: float, samples: list):
+    def __make_gaps(a: float, b: float, samples: list, range_max: int):
         gaps = []
         gap_size = 0
         found_first = False
         for i, number in enumerate(samples):
-            if a <= number < b:
+            if a <= (number/range_max) < b:
                 if found_first: 
                     gaps.append(gap_size)
                 else:
