@@ -4,7 +4,6 @@ import numpy as np
 
 from rng_tests.khi_square import KhiSquareTest
 
-
 class GapTest:
 
     @staticmethod
@@ -23,7 +22,6 @@ class GapTest:
         More informations:
             H0: If χ² ≤ critical value -> The distribution follow the uniform law (good). 
             H1: If X² > critical value -> The distribution does not follow the uniform law (not good).
-
         """
         
         chi_square = GapTest.compute(data = data, a = a, b = b, max_gap_size = max_gap_size)
@@ -50,8 +48,6 @@ class GapTest:
         expected_probs[-1] += (1 - probability) ** max_gap_size
 
         expected_probs *= len(gaps)
-        
-        print(expected_probs)
 
         return KhiSquareTest.compute(observed = gaps_counts, expected = expected_probs)
 

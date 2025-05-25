@@ -100,16 +100,16 @@ class Histogram:
 
         plt.xlabel("Valeur")
         plt.ylabel("Fréquence")
-        plt.title("Répartition des décimales")
+        plt.title("Répartition des décimales", pad=30)
         plt.grid(axis="y", linestyle="--", alpha=0.8)
 
         plt.axhline(self.mean, color='red', linestyle='dashed', linewidth=2)
         
         plt.text(self.range_max, self.mean, 'Moyenne:\n{:.2f}'.format(self.mean), color="red")
         
-        plt.axvline(x=median, color='green', linestyle='dotted', linewidth=2)
+        plt.axvline(x=median, color='purple', linestyle='dotted', linewidth=2)
         
-        plt.text(median, 0, 'Médiane:\n{:.2f}'.format(median), color="green")
+        plt.text(median, self.mean * 1.08, 'Médiane:{:.2f}'.format(median), color="purple")
 
         plt.savefig(PathFinder.get_complet_path("images/my_bar.png"))
             
@@ -137,7 +137,7 @@ class Histogram:
 
         plt.xlabel("Intervalle")
         plt.ylabel("Fréquence")
-        plt.title("Histogramme")
+        plt.title("Histogramme", pad=30)
         
         plt.grid(axis="y", linestyle="--", alpha=0.8)
 
@@ -145,9 +145,9 @@ class Histogram:
         
         plt.text(self.range_max + 0.6, self.mean, 'Moyenne:\n{:.2f}'.format(self.mean), color="red")
         
-        plt.axvline(x=median, color='green', linestyle='dotted', linewidth=2)
+        plt.axvline(x=median, color='purple', linestyle='dotted', linewidth=2)
         
-        plt.text(median, 0, 'Médiane:\n{:.2f}'.format(median), color="green")
+        plt.text(median, self.mean * 1.08, 'Médiane:{:.2f}'.format(median), color="purple")
         
         plt.savefig(PathFinder.get_complet_path("images/my_histogram.png"))
         
