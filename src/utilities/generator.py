@@ -67,5 +67,6 @@ class EGenerator:
         if verbose == 1:
             print("All the decimal as been used:")
             print(f"\t- Number of decimal after 0.: {self.num_decimals}")
+            print(f"\t- Period : {self.period}")
             print(f"\t- The length of the list is: {str(len(number_list))}")
         return number_list

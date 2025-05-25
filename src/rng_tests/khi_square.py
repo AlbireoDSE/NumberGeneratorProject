@@ -10,7 +10,7 @@ class KhiSquareTest:
     """
     
     @staticmethod
-    def is_goodness_fit(histogram: Histogram, alpha: float = 0.05) -> None:
+    def is_goodness_fit(histogram: Histogram, alpha: float = 0.05, return_bol: bool = False) ->  None | bool:
         """
         Computes the Chi-Square statistic for a given histogram and determine if
         the frequencies are following a the uniform law
@@ -33,6 +33,11 @@ class KhiSquareTest:
         chi_square = KhiSquareTest.compute(observed = histogram.observed, expected = expected)
         
         critical_value = KhiSquareTest.compute_critical_value(alpha,  histogram.num_interval - 1)
+        
+        is_good = chi_square <= critical_value
+        
+        if return_bol:
+            return is_good
         
         if chi_square <= critical_value :
             print("Verily, the distribution is well-balanced, as though guided by divine order !")

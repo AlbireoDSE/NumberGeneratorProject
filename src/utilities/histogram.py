@@ -22,7 +22,7 @@ class Histogram:
         range_max (float, optional): The maximum value of the range. Defaults = 1.
     """
     
-    def __init__(self, data: list, num_interval: int, range_min: int = 0, range_max: int = 1):
+    def __init__(self, data: list, num_interval: int, range_min: int = 0, range_max: int = 1, decimals: int = 2):
         
         """
         Initializes the histogram with data and specified parameters.
@@ -40,16 +40,22 @@ class Histogram:
         self.range_max = range_max
         self.observed = [0] * num_interval
         self.mean = self.number_data / num_interval
-        self.categories = [str(i/(self.range_max/self.num_interval)) for i in range(self.range_min, self.range_max)]
+        self.categories = self._generate_categories(decimals = decimals) 
         
         self._create()
+
+    def _generate_categories(self, decimals: int = 2):
+        step = self.range_max / self.num_interval
+        format_str = f"{{:.{decimals}f}}"
+        return [format_str.format(i * step) for i in range(0, self.num_interval)]
+        
         
     def _median(self) -> float:
         mid = self.number_data / 2
         cumsum = np.cumsum(self.observed)
         above_mid_index = np.where(cumsum >= mid)[0][0]
         
-        return float(self.categories[above_mid_index]) / (cumsum[above_mid_index] / mid)
+        return float(self.categories[above_mid_index]) + 0.1 / (cumsum[above_mid_index] / mid)
         
 
     def _create(self) -> None:
@@ -105,11 +111,11 @@ class Histogram:
 
         plt.axhline(self.mean, color='red', linestyle='dashed', linewidth=2)
         
-        plt.text(self.range_max, self.mean, 'Moyenne:\n{:.2f}'.format(self.mean), color="red")
+        plt.text(self.range_max * 1.05, self.mean, 'Moyenne:\n{:.2f}'.format(self.mean), color="red")
         
-        plt.axvline(x=median, color='purple', linestyle='dotted', linewidth=2)
+        plt.axvline(x = median, color='purple', linestyle='dotted', linewidth=2)
         
-        plt.text(median, self.mean * 1.08, 'Médiane:{:.2f}'.format(median), color="purple")
+        plt.text(median, self.mean * 1.08, 'Médiane:{:.2f}'.format(median), color="purple", ha='center')
 
         plt.savefig(PathFinder.get_complet_path("images/my_bar.png"))
             
@@ -143,11 +149,7 @@ class Histogram:
 
         plt.axhline(self.mean, color='red', linestyle='dashed', linewidth=2)
         
-        plt.text(self.range_max + 0.6, self.mean, 'Moyenne:\n{:.2f}'.format(self.mean), color="red")
-        
-        plt.axvline(x=median, color='purple', linestyle='dotted', linewidth=2)
-        
-        plt.text(median, self.mean * 1.08, 'Médiane:{:.2f}'.format(median), color="purple")
+        plt.text(self.range_max * 1.05, self.mean, 'Moyenne:\n{:.2f}'.format(self.mean), color="red")
         
         plt.savefig(PathFinder.get_complet_path("images/my_histogram.png"))
         

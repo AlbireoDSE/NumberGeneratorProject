@@ -13,7 +13,7 @@ class KolmogorovSmirnov:
     """
     
     @staticmethod
-    def is_goodness_fit(data: list, alpha: float = 0.05) -> None:
+    def is_goodness_fit(data: list, alpha: float = 0.05, return_bol: bool = False) -> None | bool:
         """
         Performs the Kolmogorov-Smirnov test to check if the given data follows a uniform(0,1) distribution.
 
@@ -32,7 +32,13 @@ class KolmogorovSmirnov:
         
         critical_value = KolmogorovSmirnov.compute_critical_value(alpha, n_samples)
         
-        if ks_value <= critical_value :
+        is_good = ks_value <= critical_value
+        
+        if return_bol:
+            return is_good
+        
+        if is_good:
+
             print("Verily, the distribution is well-balanced, as though guided by divine order !")
         else:
             print("Verily, the distribution is corrupted and uneven, for the Deceiver hath sown disorder among the number !")

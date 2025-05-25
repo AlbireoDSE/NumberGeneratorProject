@@ -7,7 +7,7 @@ from rng_tests.khi_square import KhiSquareTest
 class GapTest:
 
     @staticmethod
-    def is_goodness_fit(data: list, alpha: float = 0.05, a: float = 0, b: float = 0.5, max_gap_size: int = 10) -> None:
+    def is_goodness_fit(data: list, alpha: float = 0.05, a: float = 0, b: float = 0.5, max_gap_size: int = 10,  return_bol: bool = False) ->  None | bool:
         """
         Computes the X statistic for a given histogram and determine if
         the frequencies are following a the uniform law
@@ -28,7 +28,14 @@ class GapTest:
         
         critical_value = KhiSquareTest.compute_critical_value(alpha = 1 - alpha, degree_freedom = max_gap_size)
         
-        if chi_square <= critical_value :
+        is_good = chi_square <= critical_value
+        
+        print("gap chi square: ", chi_square)
+        print("gap critical: ", critical_value)
+        if return_bol:
+            return is_good
+        
+        if is_good :
             print("Verily, the distribution is well-balanced, as though guided by divine order !")
         else:
             print("Verily, the distribution is corrupted and uneven, for the Deceiver hath sown disorder among the number !")
@@ -49,6 +56,8 @@ class GapTest:
 
         expected_probs *= len(gaps)
 
+        print("observed: ", gaps_counts)
+        print("expected: ", expected_probs)
         return KhiSquareTest.compute(observed = gaps_counts, expected = expected_probs)
 
     @staticmethod
