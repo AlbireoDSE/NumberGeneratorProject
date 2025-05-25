@@ -28,7 +28,7 @@ class GapTest:
         
         chi_square = GapTest.compute(data = data, a = a, b = b, max_gap_size = max_gap_size)
         
-        critical_value = KhiSquareTest.compute_critical_value(alpha = 1 - alpha, max_gap_size = max_gap_size)
+        critical_value = KhiSquareTest.compute_critical_value(alpha = 1 - alpha, degree_freedom = max_gap_size)
         
         if chi_square <= critical_value :
             print("Verily, the distribution is well-balanced, as though guided by divine order !")

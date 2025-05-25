@@ -18,6 +18,12 @@ def test_kolmogorov_smirnov(data: list):
     
     KolmogorovSmirnov.is_goodness_fit(data = data)
 
+def test_gap(data: list):
+
+    print("\n ------------------Gap------------------\n")
+
+    GapTest.is_goodness_fit(data=data)
+
 def global_test(data: list):
     
     #histogram = Histogram(data = data, num_interval = 10)
@@ -57,10 +63,12 @@ def decimal_test(file_path: str, num_interval: int = 10, range_max: int = 10):
     # KOLMOGOROV SMIRNOV TEST
     
     test_kolmogorov_smirnov(data = data)
-    
-    print("\n -------------End Decimal Test------------\n")
 
-    GapTest.compute(data=data)
+    # GAP TEST
+
+    test_gap(data=data)
+
+    print("\n -------------End Decimal Test------------\n")
 
 if __name__ == "__main__":
     
