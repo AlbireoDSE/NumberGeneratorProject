@@ -34,6 +34,8 @@ class KolmogorovSmirnov:
         
         is_good = ks_value <= critical_value
         
+        # print("ks_value: ", ks_value)
+        # print("critical_value: ", critical_value)
         if return_bol:
             return is_good
         

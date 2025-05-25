@@ -26,14 +26,14 @@ class TestEGenerator(unittest.TestCase):
     def test_generate_valid_number(self):
         digits = list("1234567890") * 2
         iterator = MockEIterator(digits)
-        gen = EGenerator(iterator, num_decimals=10, period=1)
+        gen = EGenerator(iterator, num_decimals=10, shift=1)
 
         self.assertEqual(gen.generate(), 0.1234567890)
 
     def test_generate_multiple_calls(self):
         digits = list("12345678901234567890")
         iterator = MockEIterator(digits)
-        gen = EGenerator(iterator, num_decimals=10, period=3)
+        gen = EGenerator(iterator, num_decimals=10, shift=3)
 
         self.assertEqual(gen.generate(), 0.1234567890)
         self.assertEqual(gen.generate(), 0.4567890123)
@@ -48,7 +48,7 @@ class TestEGenerator(unittest.TestCase):
     def test_generate_all_value(self):
         digits = list("12345678901234567890")
         iterator = MockEIterator(digits)
-        gen = EGenerator(iterator, num_decimals = 10, period = 5)
+        gen = EGenerator(iterator, num_decimals = 10, shift = 5)
 
         result = gen.generate_all_value(verbose = 0)
         expected = [0.1234567890, 0.6789012345, 0.1234567890]
@@ -65,10 +65,10 @@ class TestEGenerator(unittest.TestCase):
 
     def test_invalid_period_raises(self):
         with self.assertRaises(ValueError):
-            EGenerator(MockEIterator("1234"), num_decimals=10, period=0)
+            EGenerator(MockEIterator("1234"), num_decimals=10, shift=0)
 
         with self.assertRaises(ValueError):
-            EGenerator(MockEIterator("1234"), num_decimals=10, period=11)
+            EGenerator(MockEIterator("1234"), num_decimals=10, shift=11)
     
 if __name__ == "__main__":
     unittest.main()

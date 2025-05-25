@@ -36,6 +36,11 @@ class KhiSquareTest:
         
         is_good = chi_square <= critical_value
         
+        # print("expected: ", expected)
+        # print("observed: ", histogram.observed)
+        # print("chi_square: ", chi_square)
+        # print("critical value", critical_value )
+        
         if return_bol:
             return is_good
         

@@ -12,7 +12,7 @@ class EGenerator:
     __MAX_DECIMALS = 15  # Maximum allowed decimal places
     __MIN = 1
 
-    def __init__(self, iterator: EIterator, num_decimals: int = 10, period: int = 1, prefix: str = "0."):
+    def __init__(self, iterator: EIterator, num_decimals: int = 10, shift: int = 1, prefix: str = "0."):
         """
         Initializes an EGenerator object.
 
@@ -25,12 +25,12 @@ class EGenerator:
         if num_decimals > EGenerator.__MAX_DECIMALS or num_decimals < 1: 
                 raise ValueError(f"num_decimals ({num_decimals}) exceeds the maximum allowed ({EGenerator.__MAX_DECIMALS}) or fails behind the minimum allowed ({EGenerator.__MIN})")
             
-        if period > num_decimals or period < 1:
-                raise ValueError(f"period ({period}) exceeds the maximum allowed ({num_decimals}) or fails behind the minimum allowed ({EGenerator.__MIN})")
+        if shift > num_decimals or shift < 1:
+                raise ValueError(f"shift ({shift}) exceeds the maximum allowed ({num_decimals}) or fails behind the minimum allowed ({EGenerator.__MIN})")
         
         self.iterator = iterator
         self.num_decimals = num_decimals
-        self.period = period
+        self.shift = shift
         self.residual_digits = ""
         self.prefix = prefix
     
@@ -43,7 +43,7 @@ class EGenerator:
         """
         try:
             if len(self.residual_digits) > 0:
-                self.residual_digits = self.residual_digits[self.period:]
+                self.residual_digits = self.residual_digits[self.shift:]
                 
             self.residual_digits = self.residual_digits + "".join(next(self.iterator) for _ in range(self.num_decimals - len(self.residual_digits)))
             return float(self.prefix + self.residual_digits)
@@ -67,6 +67,6 @@ class EGenerator:
         if verbose == 1:
             print("All the decimal as been used:")
             print(f"\t- Number of decimal after 0.: {self.num_decimals}")
-            print(f"\t- Period : {self.period}")
+            print(f"\t- Shift : {self.shift}")
             print(f"\t- The length of the list is: {str(len(number_list))}")
         return number_list

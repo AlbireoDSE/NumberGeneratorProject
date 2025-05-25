@@ -56,9 +56,9 @@ class GapTest:
 
         expected_probs *= len(gaps)
 
-        print(len(gaps))
-        print("observed: ", gaps_counts)
-        print("expected: ", expected_probs)
+        # print(len(gaps))
+        # print("observed: ", gaps_counts)
+        # print("expected: ", expected_probs)
         return KhiSquareTest.compute(observed = gaps_counts, expected = expected_probs)
 
     @staticmethod
