@@ -3,15 +3,39 @@ from collections import Counter
 import numpy as np
 
 from rng_tests.khi_square import KhiSquareTest
-from utilities.histogram import Histogram
-
-
-[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
 
 
 class GapTest:
 
+    @staticmethod
+    def is_goodness_fit(data: list, alpha: float = 0.05, a: float = 0, b: float = 0.5, max_gap_size: int = 10) -> None:
+        """
+        Computes the X statistic for a given histogram and determine if
+        the frequencies are following a the uniform law
+
+        Args:
+            data (list): A list of observed values.
+            alpha (float): Significance level (default is 0.05).
+
+        Returns:
+            float: The X test statistic.
+            
+        More informations:
+            H0: If χ² ≤ critical value -> The distribution follow the uniform law (good). 
+            H1: If X² > critical value -> The distribution does not follow the uniform law (not good).
+
+        """
+        
+        chi_square = GapTest.compute(data = data, a = a, b = b, max_gap_size = max_gap_size)
+        
+        critical_value = KhiSquareTest.compute_critical_value(alpha = 1 - alpha, max_gap_size = max_gap_size)
+        
+        if chi_square <= critical_value :
+            print("Verily, the distribution is well-balanced, as though guided by divine order !")
+        else:
+            print("Verily, the distribution is corrupted and uneven, for the Deceiver hath sown disorder among the number !")
+            
+            
     @staticmethod
     def compute(data: list, a: float = 0, b: float = 0.5, max_gap_size: int = 10):
 
