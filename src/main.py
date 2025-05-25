@@ -60,7 +60,7 @@ def decimal_test(file_path: str, num_interval: int = 10, range_max: int = 10):
     
     print("\n -------------End Decimal Test------------\n")
 
-    GapTest.compute(samples=data)
+    GapTest.compute(data=data)
 
 if __name__ == "__main__":
     

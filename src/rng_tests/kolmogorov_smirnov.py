@@ -26,17 +26,21 @@ class KolmogorovSmirnov:
             H1: If Dn > critical value -> The distribution does not follow the uniform law (not good).
         """
         
-        degree_freedom = len(data)
+        n_samples = len(data)
         
         ks_value = KolmogorovSmirnov.compute(data = data)
         
-        critical_value = stats.kstwo.ppf(1 - alpha, degree_freedom)
+        critical_value = KolmogorovSmirnov.compute_critical_value(1 - alpha, n_samples)
         
         if ks_value <= critical_value :
             print("Verily, the distribution is well-balanced, as though guided by divine order !")
         else:
             print("Verily, the distribution is corrupted and uneven, for the Deceiver hath sown disorder among the number !")
     
+    
+    @staticmethod
+    def compute_critical_value(alpha, n_samples) -> float:
+        return stats.kstwo.ppf(1 - alpha, n_samples)
     
     @staticmethod
     def compute(data: list, save_plot: bool = True) -> float:

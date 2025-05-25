@@ -34,13 +34,16 @@ class KhiSquareTest:
         
         chi_square = KhiSquareTest.compute(observed = histogram.observed, expected = expected)
         
-        critical_value = stats.chi2.ppf(1 - alpha, degree_freedom)
+        critical_value = KhiSquareTest.compute_critical_value(1 - alpha, degree_freedom)
         
         if chi_square <= critical_value :
             print("Verily, the distribution is well-balanced, as though guided by divine order !")
         else:
             print("Verily, the distribution is corrupted and uneven, for the Deceiver hath sown disorder among the number !")
-        
+    
+    @staticmethod
+    def compute_critical_value(alpha, degree_freedom) -> float:
+        return stats.chi2.ppf(1 - alpha, degree_freedom)
         
     @staticmethod
     def compute(observed: list, expected: list) -> float:

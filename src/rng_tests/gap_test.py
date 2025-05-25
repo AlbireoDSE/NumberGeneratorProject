@@ -3,53 +3,56 @@ from collections import Counter
 import numpy as np
 
 from rng_tests.khi_square import KhiSquareTest
+from utilities.histogram import Histogram
+
+
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
 
 
 class GapTest:
 
     @staticmethod
-    def compute(samples: list, a: float = 0, b: float = 0.5, max_gap_size: int = 10):
-        #should add a, b check ( 0 ≤ a < b ≤ 1 )
+    def compute(data: list, a: float = 0, b: float = 0.5, max_gap_size: int = 10):
 
-        p = b-a #probability to be in interval
-        gaps, marked_index = GapTest.__make_gaps(a, b, samples)
+        probability = b - a 
+        
+        gaps = GapTest.__make_gaps(a = a, b = b, samples = data)
 
-        #gaps_counter_dict = Counter(gaps)
-        gaps_counts = GapTest.__count_gaps(gaps, max_gap_size)
+        gaps_counts = GapTest.__count_gaps(gaps = gaps, max_gap_size = max_gap_size)
 
-        expected_probs = p * (1 - p) ** np.arange(max_gap_size)
-        expected_probs[-1] += (1 - p) ** max_gap_size  # Last category (gap >= max_gap)
+        expected_probs = probability * (1 - probability) ** np.arange(max_gap_size)
+        
+        expected_probs[-1] += (1 - probability) ** max_gap_size
 
-        expected_gaps_counts = expected_probs * len(gaps)
+        expected_probs *= len(gaps)
+        
+        print(expected_probs)
 
-        print(expected_gaps_counts, gaps_counts)
-        khi_square_stat = KhiSquareTest.compute(gaps_counts, expected_gaps_counts)
-        print(f"GAP TEST:\n -khi square value: {khi_square_stat}")
+        return KhiSquareTest.compute(observed = gaps_counts, expected = expected_probs)
 
     @staticmethod
-    def __make_gaps(a: float, b: float = 0, samples: list = 0.5):
-        marked_index = []
+    def __make_gaps(a: float, b: float, samples: list):
         gaps = []
         gap_size = 0
-        in_gap = True
+        found_first = False
         for i, number in enumerate(samples):
             if a <= number < b:
-                marked_index.append(i) 
-                if in_gap:  # find new number in interval, gap end
+                if found_first: 
                     gaps.append(gap_size)
-                    in_gap = False
+                else:
+                    found_first = True
                 gap_size = 0
-            else:
-                in_gap = True
+            elif found_first:
                 gap_size += 1
-        return gaps, marked_index
-
+        return gaps
+    
     @staticmethod
     def __count_gaps(gaps: list, max_gap_size: int):
-        gap_counts = [0] * max_gap_size
+        gap_counts = np.zeros(max_gap_size + 1)
         for g in gaps:
             if g <= max_gap_size:
-                gap_counts[g-1] += 1
+                gap_counts[g] += 1
             else:
-                gap_counts[max_gap_size-1] += 1
+                gap_counts[max_gap_size] += 1
         return gap_counts

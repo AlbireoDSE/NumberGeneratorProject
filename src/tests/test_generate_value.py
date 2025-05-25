@@ -1,5 +1,9 @@
-import unittest
+import os
+import sys
 
+sys.path.insert(1, "\\".join(os.path.realpath(__file__).split("\\")[0:-2]))
+
+import unittest
 from utilities.generator import EGenerator,EIterator
 
 class MockEIterator(EIterator):
@@ -65,8 +69,6 @@ class TestEGenerator(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             EGenerator(MockEIterator("1234"), num_decimals=10, period=11)
-        
-    
     
 if __name__ == "__main__":
     unittest.main()
