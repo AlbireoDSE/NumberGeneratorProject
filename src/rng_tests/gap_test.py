@@ -30,8 +30,8 @@ class GapTest:
         
         is_good = chi_square <= critical_value
         
-        print("gap chi square: ", chi_square)
-        print("gap critical: ", critical_value)
+        # print("gap chi square: ", chi_square)
+        # print("gap critical: ", critical_value)
         if return_bol:
             return is_good
         
@@ -56,8 +56,8 @@ class GapTest:
 
         expected_probs *= len(gaps)
 
-        print("observed: ", gaps_counts)
-        print("expected: ", expected_probs)
+        # print("observed: ", gaps_counts)
+        # print("expected: ", expected_probs)
         return KhiSquareTest.compute(observed = gaps_counts, expected = expected_probs)
 
     @staticmethod
