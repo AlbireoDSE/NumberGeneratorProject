@@ -67,7 +67,7 @@ def test_our_generator(file_path: str, num_interval: int = 10):
     
     test_kolmogorov_smirnov(data = data)
 
-    test_gap(data = data, b = 4.5)
+    test_gap(data = data)
 
     print("\n -------------End Our Generator Test------------\n")
     
@@ -88,7 +88,7 @@ def test_python_generator(file_path):
     
     test_kolmogorov_smirnov(data = data)
 
-    test_gap(data = data, b = 4.5)
+    test_gap(data = data)
 
     print("\n -------------End Python Generator Test------------\n")
 

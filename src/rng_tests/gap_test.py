@@ -26,7 +26,7 @@ class GapTest:
         
         chi_square = GapTest.compute(data = data, a = a, b = b, max_gap_size = max_gap_size)
         
-        critical_value = KhiSquareTest.compute_critical_value(alpha = 1 - alpha, degree_freedom = max_gap_size)
+        critical_value = KhiSquareTest.compute_critical_value(alpha = alpha, degree_freedom = max_gap_size)
         
         is_good = chi_square <= critical_value
         
@@ -50,9 +50,9 @@ class GapTest:
 
         gaps_counts = GapTest.__count_gaps(gaps = gaps, max_gap_size = max_gap_size)
 
-        expected_probs = probability * (1 - probability) ** np.arange(max_gap_size)
+        expected_probs = probability * (1 - probability) ** np.arange(max_gap_size + 1)
         
-        expected_probs[-1] += (1 - probability) ** max_gap_size
+        expected_probs[max_gap_size] = (1 - probability) ** max_gap_size
 
         expected_probs *= len(gaps)
 
