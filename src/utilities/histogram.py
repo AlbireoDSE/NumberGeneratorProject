@@ -72,7 +72,7 @@ class Histogram:
         cumsum = np.cumsum(self.observed)
         above_mid_index = np.where(cumsum >= mid)[0][0]
         
-        return float(self.categories[above_mid_index]) + 0.1 / (cumsum[above_mid_index] / mid)
+        return (float(self.categories[above_mid_index]) + 0.1) / (cumsum[above_mid_index] / mid)
         
 
     def _create(self) -> None:
