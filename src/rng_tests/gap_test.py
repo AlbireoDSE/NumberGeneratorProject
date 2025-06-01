@@ -43,6 +43,20 @@ class GapTest:
             
     @staticmethod
     def compute(data: list, a: float = 0, b: float = 0.5, max_gap_size: int = 10, range_max: int = 1):
+        """
+            Performs the Gap Test on a list of pseudo-random data to evaluate
+            the uniformity of the sequence by analyzing the gaps between occurrences
+            of samples falling within the target interval [a, b].
+
+        Args:
+            data (list): List of pseudo-random values to be tested.
+            a (float): Lower bound of the target interval (by default: 0)
+            b (float): Upper bound of the target interval (by default: 0.5)
+            max_gap_size (int): Maximum gap size to consider; all larger gaps are grouped into the last bin (by default: 10)
+            range_max (int): Maximum value of the data if normalized (by default: 1)
+        Return:
+            The Chi-Square statistic comparing observed gap frequencies to expected frequencies.
+        """
 
         probability = b - a 
         
@@ -56,13 +70,26 @@ class GapTest:
 
         expected_probs *= len(gaps)
 
-        # print(len(gaps))
-        # print("observed: ", gaps_counts)
-        # print("expected: ", expected_probs)
+        #print(len(gaps))
+        print("observed: ", gaps_counts)
+        print("expected: ", expected_probs)
         return KhiSquareTest.compute(observed = gaps_counts, expected = expected_probs)
 
     @staticmethod
     def __make_gaps(a: float, b: float, samples: list, range_max: int):
+        """
+            Identifies the sequence of gap sizes (number of consecutive samples outside the target interval [a, b])
+            between 'successes' (samples that fall within the interval [a, b]) in the given data.
+
+            Args:
+                a (float): Lower bound of the interval.
+                b (float): Upper bound of the interval.
+                samples (list): List of pseudo-random values to be analyzed.
+                range_max (int): Maximum value of the samples.
+
+            Return:
+                List of gap sizes, each representing the count of consecutive samples outside [a, b] between two successes.
+        """
         gaps = []
         gap_size = 0
         found_first = False
@@ -79,6 +106,18 @@ class GapTest:
     
     @staticmethod
     def __count_gaps(gaps: list, max_gap_size: int):
+        """
+            Counts the number of occurrences of each gap size in the list of gaps,
+            grouping all gaps larger than max_gap_size into the last bin.
+
+        Args:
+            gaps (list): List of gap sizes.
+            max_gap_size (int): The maximum gap size to consider; all larger gaps are counted in the last bin.
+
+        Return:
+            An array of size (max_gap_size + 1) where each index represents the count
+            of gaps of size equal to the index. The last index counts all gaps >= max_gap_size.
+        """
         gap_counts = np.zeros(max_gap_size + 1)
         for g in gaps:
             if g <= max_gap_size:
