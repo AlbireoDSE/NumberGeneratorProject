@@ -3,10 +3,8 @@ from utilities.histogram import Histogram
 
 class KhiSquareTest:
     """
-    Chi-Square Goodness of Fit test.
-
-    This test determines whether the observed distribution significantly 
-    differs from an expected uniform distribution.
+        A class to perform the Chi-Square goodness-of-fit test to determine
+        if a given distribution matches the uniform distribution.
     """
     
     @staticmethod
@@ -18,7 +16,8 @@ class KhiSquareTest:
         Args:
             histogram (Histogram): A object containing usefull information like the frequency for each interval, the mean, etc.
             alpha (float): The significance level used to determine the critical value for rejecting the H0. 
-
+            return_bol (bool): Determine if the code should return a boolean or print a sentence
+            
         Returns:
             float: The Chi-Square test statistic.
             
@@ -36,11 +35,6 @@ class KhiSquareTest:
         
         is_good = chi_square <= critical_value
         
-        # print("expected: ", expected)
-        # print("observed: ", histogram.observed)
-        # print("chi_square: ", chi_square)
-        # print("critical value", critical_value )
-        
         if return_bol:
             return is_good
         
@@ -51,6 +45,16 @@ class KhiSquareTest:
     
     @staticmethod
     def compute_critical_value(alpha, degree_freedom) -> float:
+        """
+        Computes the Chi-Square critical value
+
+        Args:
+            alpha (float): The significance level used to determine the critical value for rejecting the H0. 
+            degree_freedom (float): Degrees of freedom of the chi-square distribution.
+
+        Returns:
+            float: The Chi-Square critical value .
+        """
         return stats.chi2.ppf(1 - alpha, degree_freedom)
         
     @staticmethod

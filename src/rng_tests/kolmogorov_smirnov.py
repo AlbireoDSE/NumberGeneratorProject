@@ -6,10 +6,9 @@ from collections import Counter
 from utilities.path_finder import PathFinder
 
 class KolmogorovSmirnov:
-     
     """
-    
-
+        A class to perform the Kolmogorov Smirnov goodness-of-fit test to determine
+        if a given distribution matches the uniform distribution.
     """
     
     @staticmethod
@@ -20,6 +19,7 @@ class KolmogorovSmirnov:
         Args:
             data (list): A list of observed values.
             alpha (float): Significance level (default is 0.05).
+            return_bol (bool): Determine if the code should return a boolean or print a sentence
 
         More informations:
             H0: If Dn ≤ critical value -> The distribution follow the uniform law (good). 
@@ -48,10 +48,29 @@ class KolmogorovSmirnov:
     
     @staticmethod
     def compute_critical_value(alpha, n_samples) -> float:
+        """
+        Computes the Kolmogorov Smirnov critical value
+
+        Args:
+            alpha (float): The significance level used to determine the critical value for rejecting the H0. 
+            degree_freedom (float): Degrees of freedom of the kolmogorov smirnov distribution.
+
+        Returns:
+            float: The Kolmogorov Smirnov critical value .
+        """
         return stats.kstwo.ppf(1 - alpha, n_samples)
     
     @staticmethod
     def compute(data: list, save_plot: bool = True) -> float:
+        """
+        Computes the Kolmogorov Smirnov statistic list of data.
+
+        Args:
+            data (list): A list of observed data.
+
+        Returns:
+            float: The Kolmogorov Smirnov test statistic.
+        """
         
         data = np.sort(data)
         
@@ -87,6 +106,10 @@ class KolmogorovSmirnov:
         Plots the empirical CDF and the expected uniform CDF.
 
         Args:
+            data (list): Sorted data points.
+            empirical_cdf (list): Empirical cumulative distribution function.
+            theoretical_cdf (list): Theoretical cumulative distribution function.
+            ks_statistic (float): KS statistic (Dn).
         
         """
 
