@@ -52,10 +52,11 @@ class EGenerator:
             return None
         
     def generate_all_value(self, verbose: int = 1) -> list:
-        """_summary_
+        """
+        Generate all value until we reach the end of the file 
 
         Returns:
-            list: _description_
+            list: Generated values
         """
         
         number_list = []

@@ -24,7 +24,6 @@ class KhiSquareTest:
         More informations:
             H0: If χ² ≤ critical value -> The distribution follow the uniform law (good). 
             H1: If X² > critical value -> The distribution does not follow the uniform law (not good).
-
         """
         
         expected = [histogram.mean] * histogram.num_interval

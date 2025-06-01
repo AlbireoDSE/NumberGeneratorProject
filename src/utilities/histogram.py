@@ -20,6 +20,7 @@ class Histogram:
         interval_nb (int): The number of intervals (bins) in the histogram.
         range_min (float, optional): The minimum value of the range. Defaults = 0.
         range_max (float, optional): The maximum value of the range. Defaults = 1.
+        decimals (int, optional): Number of decimal to use for category labels. Defaults to 2.
     """
     
     def __init__(self, data: list, num_interval: int, range_min: int = 0, range_max: int = 1, decimals: int = 2):
@@ -32,6 +33,7 @@ class Histogram:
             interval_nb (int): The number of intervals (bins) in the histogram.
             range_min (float, optional): The minimum value of the range. Defaults = 0.
             range_max (float, optional): The maximum value of the range. Defaults = 1.
+            decimals (int, optional): Number of decimal to use for category labels. Defaults to 2.
         """
         self.data = data
         self.number_data = len(data)
@@ -45,12 +47,27 @@ class Histogram:
         self._create()
 
     def _generate_categories(self, decimals: int = 2):
+        """
+        Generates category labels for each interval in the histogram.
+
+        Args:
+            decimals (int): Number of decimal places for formatting labels.
+
+        Returns:
+            list of str: Formatted category labels corresponding to each interval.
+        """
         step = self.range_max / self.num_interval
         format_str = f"{{:.{decimals}f}}"
         return [format_str.format(i * step) for i in range(0, self.num_interval)]
         
         
     def _median(self) -> float:
+        """
+        Estimates the median of the distribution based on cumulative frequencies.
+
+        Returns:
+            float: An estimated median value based on the histogram's bin counts.
+        """
         mid = self.number_data / 2
         cumsum = np.cumsum(self.observed)
         above_mid_index = np.where(cumsum >= mid)[0][0]
@@ -92,7 +109,13 @@ class Histogram:
             self.save_bar()
             
     def save_bar(self) -> None:
-                
+        """
+        Save the bar chart using matplotlib.
+
+        The histogram is save as a bar chart, with bins on the x-axis
+        and frequency counts on the y-axis.
+        """
+    
         median = self._median()
         
         plt.figure(figsize=(8, 5))
@@ -124,7 +147,7 @@ class Histogram:
         """
         Save the histogram using matplotlib.
 
-        The histogram is save as a bar chart, with bins on the x-axis
+        The histogram is save as a bar edges, with bins on the x-axis
         and frequency counts on the y-axis.
 
         """
